@@ -10,7 +10,9 @@ public class Filesystem {
     private long fechaCreacion;
     private String loggedUser;
     private String driveActual;
+    private String rutaActual;
     private ArrayList<Drive> drives;
+    public ArrayList<User> users;
     
     // Métodos
     
@@ -20,6 +22,7 @@ public class Filesystem {
         this.fechaCreacion = Instant.now().toEpochMilli();
         this.loggedUser = "";
         this.driveActual = "";
+        this.users = new ArrayList<>();
         this.drives = new ArrayList<>();
     }
     
@@ -40,8 +43,16 @@ public class Filesystem {
         return loggedUser;
     }
     
+    public ArrayList<User> getUsers(){
+        return users;
+    }
+    
     public String getDriveActual(){
         return driveActual;
+    }
+    
+    public String getRutaActual(){
+        return rutaActual;
     }
     
     // Modificadores
@@ -57,6 +68,14 @@ public class Filesystem {
         this.driveActual = letter;
     }
     
+    public void setUsers(ArrayList<User> users){
+        this.users = users;
+    }
+    
+    public void setRutaActual(String rutaActual){
+        this.rutaActual = rutaActual;
+    }
+    
     // Otras Operaciones
     public void agregarDrive(Drive newdrive){
         ArrayList<Drive> listaDrives = getDrives();
@@ -64,11 +83,29 @@ public class Filesystem {
         setDrives(listaDrives);
     }
     
+    public void agregarUser(User newUser){
+        ArrayList<User> listaUsers = getUsers();
+        listaUsers.add(newUser);
+        setUsers(listaUsers);
+    }
+    
     public boolean buscarDrive(String letra){
         int largo = this.folders.size();
         for(int i = 0 ; i < largo ; ++i){
             Drive drive = drives.get(i);
             if(drive.letter.equals(letra)){
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    public boolean buscarUser(String userName){
+        int largo = this.users.size();
+        for(int i = 0 ; i < largo ; ++i){
+            User user = users.get(i);
+            if(user.userName.equals(userName)){
                 return true;
             }
         }
