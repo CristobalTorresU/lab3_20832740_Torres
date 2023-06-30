@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import clases.*;
 
 public class Control {
-    private Filesystem filesystem;
+    public Filesystem filesystem;
     
     // Constructor
     public Control(Filesystem filesystem){
@@ -22,17 +22,26 @@ public class Control {
             // Agregar a la ArrayList
             Drive newDrive = new Drive(letter,name,capacity);
             filesystem.agregarDrive(newDrive);
+            Folder newFolder = new Folder(letter, letter + ":/", filesystem.getLoggedUser());
+            filesystem.agregarFolder(newFolder);
+            System.out.println("La unidad se agregó correctamente.");
+            return;
         }
+        
+        System.out.println("La unidad ingresada ya existe.");
     }
     
     public void register(String userName){
         // Verificar que no exista
         if(filesystem.buscarUser(userName) == false){
-            // Agregar a la ArrayList
-            User newUser = new User(userName);
-            filesystem.agregarUser(newUser);
-            System.out.println("El usuario se registró correctamente.");
-            return;
+            if(!userName.equals("")){
+                // Agregar a la ArrayList
+                User newUser = new User(userName);
+                filesystem.agregarUser(newUser);
+                System.out.println("El usuario se registró correctamente.");
+                return;
+            }
+            System.out.println("Nombre de usuario inválido.");
         }
         System.out.println("El usuario ya existe.");
     }
@@ -57,4 +66,104 @@ public class Control {
         
         System.out.println("No existe una sesión iniciada.");
     }
+    
+    public void switchDrive(String letter){
+        // Verificar que exista el drive y un usuario loggeado
+        if(filesystem.buscarDrive(letter) == true){
+            if(!filesystem.getLoggedUser().equals("")){
+                // Cambiar Drive
+                filesystem.setDriveActual(letter);
+                filesystem.setRutaActual(letter + ":/");
+                System.out.println("Se cambió de unidad correctamente.");
+                return;
+            }
+            System.out.println("Debe iniciar sesión para cambiar de unidad.");
+        }
+        
+        System.out.println("La unidad ingresada no existe.");
+    }
+    
+    public void mdkir(String name){
+        String ruta = filesystem.getRutaActual() + name + "/";
+        // Verificar que el nombre de la carpeta no exista en la ruta
+        if(filesystem.buscarFolder(ruta) == false){
+            String creador = filesystem.getLoggedUser();
+            Folder newFolder = new Folder(name, ruta, creador);
+            filesystem.agregarFolder(newFolder);
+            System.out.println("La carpeta se creó exitosamente.");
+            return;
+        }
+        
+        System.out.println("La carpeta ya existe en el directorio.");
+    }
+    
+    public void cd(String path){
+        // Comandos predeterminados
+        switch(path){
+            case "..":
+                if(filesystem.getRutaActual().split("/").length > 1){
+                   String[] ruta = filesystem.getRutaActual().split("/");
+                   int largo = ruta.length;
+                   String newRuta = "";
+                   for(int i = 0 ; i < largo - 1 ; ++i){
+                       newRuta = newRuta + ruta[i] + "/";
+                   }
+                   
+                   filesystem.setRutaActual(newRuta);
+                   System.out.println("Se cambió al directorio padre.");
+                   return;
+                }
+                System.out.println("Ya se encuentra en la carpeta raíz.");
+                return;
+            case "/":
+                filesystem.setRutaActual(filesystem.getDriveActual() + ":/");
+                System.out.println("Se cambió al directorio raíz.");
+                return;
+            case ".":
+                System.out.println("Se cambió al mismo directorio.");
+                return;
+        }
+        
+        // AGREGAR EL CASO EN QUE SE USE EL COMODÍN AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        // Verificar que la ruta exista
+        String ruta = filesystem.getRutaActual() + path + "/";
+
+        if(filesystem.buscarFolder(path)){
+            filesystem.setRutaActual(path);
+            System.out.println("Se cambió a la ruta satisfactoriamente.");
+        } else if(filesystem.buscarFolder(ruta)== true){ // Verificar que la carpeta exista
+            filesystem.setRutaActual(ruta);
+            System.out.println("Se cambió al directorio satisfactoriamente.");
+        } else {
+            System.out.println("El directorio ingresado no existe.");
+        }
+    }
+    
+    public void addFile(File archivo){
+        // Verificar si el archivo no existe en el directorio
+        
+        if(!filesystem.buscarFile(archivo.getNombre(), archivo.getRuta())){
+            filesystem.agregarFile(archivo);
+            System.out.println("El archivo se agregó exitosamente.");
+        } else { // Si existe
+            String nombre = archivo.getNombre();
+            String ruta = archivo.getRuta();
+            String contenido = archivo.getContenido();
+            String extension = archivo.getExtension();
+            filesystem.sobreescribirFile(nombre, ruta, contenido, extension);
+        }
+    }
+    
+    public void del(String fileName){
+        // Es un archivo
+        if(filesystem.buscarFile(fileName, filesystem.getRutaActual())){
+            filesystem.eliminarFile(fileName, filesystem.getRutaActual());
+            System.out.println("El archivo se eliminó exitosamente.");
+        } else if(filesystem.buscarFolder(fileName)){ // Es una carpeta
+            System.out.println("FALTA AGREGAR ESTOOOOO.");
+        } else {
+            System.out.println("El nombre ingresado no existe.");
+        }
+    }
+    
 }

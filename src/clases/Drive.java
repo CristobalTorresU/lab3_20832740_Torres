@@ -1,15 +1,17 @@
 package clases;
 
+import clases.*;
+
 public class Drive {
     // Atributos
-    private char letter;
+    private String letter;
     private String name;
     private int capacity;
 
 
     // Métodos
     // Constructor
-    public Drive(char letter, String name, int capacity){
+    public Drive(String letter, String name, int capacity){
         this.letter = letter;
         this.name = name;
         this.capacity = capacity;
@@ -18,7 +20,7 @@ public class Drive {
 
 
     // Selectores
-    public char getLetra(){
+    public String getLetra(){
         return letter;
     }
     
@@ -33,7 +35,7 @@ public class Drive {
 
 
     // Modificadores
-    public void setLetra(char letter){
+    public void setLetra(String letter){
         this.letter = letter;
     }
     
@@ -44,5 +46,4 @@ public class Drive {
     public void setCapacity(int capacity){
         this.capacity = capacity;
     }
-    
 }
