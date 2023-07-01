@@ -124,7 +124,7 @@ public class Control {
                 return;
         }
         
-        // AGREGAR EL CASO EN QUE SE USE EL COMODÍN AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        // AGREGAR EL CASO EN QUE SE USE EL COMODÍN
         // Verificar que la ruta exista
         String ruta = filesystem.getRutaActual() + path + "/";
 
@@ -142,15 +142,16 @@ public class Control {
     public void addFile(File archivo){
         // Verificar si el archivo no existe en el directorio
         
-        if(!filesystem.buscarFile(archivo.getNombre(), archivo.getRuta())){
+        if(!filesystem.buscarFile(archivo.getNombreSinExtension(), archivo.getRuta())){
             filesystem.agregarFile(archivo);
             System.out.println("El archivo se agregó exitosamente.");
-        } else { // Si existe
+        } else if(filesystem.buscarFile(archivo.getNombreSinExtension(), archivo.getRuta())){ // Si existe
             String nombre = archivo.getNombre();
             String ruta = archivo.getRuta();
             String contenido = archivo.getContenido();
             String extension = archivo.getExtension();
             filesystem.sobreescribirFile(nombre, ruta, contenido, extension);
+            System.out.println("El archivo se sobreescribió exitosamente.");
         }
     }
     
@@ -159,11 +160,41 @@ public class Control {
         if(filesystem.buscarFile(fileName, filesystem.getRutaActual())){
             filesystem.eliminarFile(fileName, filesystem.getRutaActual());
             System.out.println("El archivo se eliminó exitosamente.");
-        } else if(filesystem.buscarFolder(fileName)){ // Es una carpeta
-            System.out.println("FALTA AGREGAR ESTOOOOO.");
+        } else if(filesystem.buscarFolder(filesystem.getRutaActual() + fileName + "/")){ // Es una carpeta
+            System.out.println(filesystem.getRutaActual() + fileName + "/");
+            filesystem.eliminarFolder(filesystem.getRutaActual() + fileName + "/");
+            System.out.println("La carpeta se eliminó exitosamente.");
         } else {
             System.out.println("El nombre ingresado no existe.");
         }
     }
     
+    /*
+    public void copy(){
+        
+    }*/
+    
+    /*
+    public void move(){
+    
+    }
+    */
+    
+    /*
+    public void ren(){
+    
+    }
+    */
+    
+    /*
+    public void dir(){
+    
+    }
+    */
+    
+    /*
+    public void format(){
+    
+    }
+    */
 }

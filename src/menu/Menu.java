@@ -193,7 +193,6 @@ public class Menu {
         System.out.println("\nIntroduzca su opción: ");
         
         // Introducir opción
-        //opcion.nextInt();
         alternativa = opcion.nextInt();
         
         switch(alternativa){
@@ -205,6 +204,10 @@ public class Menu {
                 break;
             case 2:
                 // DIFICULTAD
+                System.out.println("Ingrese el nombre de la carpeta: ");
+                opcion.nextLine();
+                String nombreCarpetaEliminar = opcion.nextLine();
+                controlSistema.del(nombreCarpetaEliminar);
                 break;
             case 3:
                 // DIFICULTAD
@@ -347,9 +350,17 @@ public class Menu {
         }
         
         System.out.println("\n### Papelera ###");
-        int largoPapelera = controlSistema.filesystem.getFiles().size();
+       
         System.out.println("Carpetas:");
+        int largoPapelera = controlSistema.filesystem.getFolders().size();
+        for(int i = 0 ; i < largoPapelera ; ++i){
+            if(controlSistema.filesystem.getFolders().get(i).getEliminado() == true){
+                System.out.println("    " + controlSistema.filesystem.getFolders().get(i).getRuta());
+            }
+        }
+
         System.out.println("Archivos:");
+        largoPapelera = controlSistema.filesystem.getFiles().size();
         for(int i = 0 ; i < largoPapelera ; ++i){
             if(controlSistema.filesystem.getFiles().get(i).getEliminado() == true){
                 System.out.println("    " + controlSistema.filesystem.getFiles().get(i).getNombre());

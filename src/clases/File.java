@@ -16,6 +16,10 @@ public class File {
         return nombre;
     }
     
+    public String getNombreSinExtension(){
+        return nombre.split("\\.")[0];
+    }
+    
     public String getExtension(){
         return extension;
     }
@@ -47,8 +51,25 @@ public class File {
         this.nombre = nombre;
     }
     
-    public void setTipo(String tipo){
-        this.tipo = tipo;
+    public void setTipo(String extension){
+        switch(extension){
+            case "txt":
+            case "md":
+                this.tipo = "Texto Plano";
+                break;
+            case "docx":
+            case "pdf":
+            case "tex":
+                this.tipo = "Documento";
+                break;
+            case "py":
+            case "c":
+            case "java":
+            case "rkt":
+            case "pl":
+                this.tipo = "Código Fuente";
+                break;
+        }
     }
     
     public void setExtension(String extension){
@@ -65,6 +86,27 @@ public class File {
     
     public void setEliminado(boolean eliminado){
         this.eliminado = eliminado;
+    }
+    
+    
+    
+    // Otras Operaciones
+    public boolean subdirectorio(String ruta){
+        String[] rutaOriginal = ruta.split("/");
+        String[] rutaSub = getRuta().split("/");
+        int largo = rutaOriginal.length;
+
+        for(int i = 0 ; i < largo ; ++i){
+            if(rutaOriginal.length < rutaSub.length){
+                if(!rutaOriginal[i].equals(rutaSub[i])){
+                    return false;
+                }
+                
+                return false;
+            }
+        }
+
+        return true;
     }
 }
 

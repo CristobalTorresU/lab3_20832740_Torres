@@ -11,10 +11,10 @@ public class Filesystem {
     private String loggedUser;
     private String driveActual;
     private String rutaActual;
-    public ArrayList<Drive> drives;
-    public ArrayList<User> users;
-    public ArrayList<Folder> folders;
-    public ArrayList<File> files;
+    private ArrayList<Drive> drives;
+    private ArrayList<User> users;
+    private ArrayList<Folder> folders;
+    private ArrayList<File> files;
     
     // Métodos
     
@@ -168,7 +168,7 @@ public class Filesystem {
         int largo = this.files.size();
         for(int i = 0 ; i < largo ; ++i){
             File file = files.get(i);
-            if(file.getNombre().equals(nombre) && file.getRuta().equals(ruta)){
+            if(file.getNombreSinExtension().equals(nombre) && file.getRuta().equals(ruta)){
                 return true;
             }
         }
@@ -185,13 +185,35 @@ public class Filesystem {
         }
     }
     
+    public void eliminarFolder(String ruta){
+        int largoF = getFolders().size();
+        String rutaF;
+        for(int i = 0 ; i < largoF ; ++i){
+            rutaF = getFolders().get(i).getRuta();
+            if(rutaF.equals(ruta) || folders.get(i).subdirectorio(ruta) == false){
+                folders.get(i).setEliminado(true);
+            } // || folders.get(i).subdirectorio(ruta) == true
+        }
+        
+        int largoFi = getFiles().size();
+        String rutaFi;
+        for(int i = 0 ; i < largoFi ; ++i){
+            rutaFi = getFiles().get(i).getRuta();
+            if(rutaFi.equals(ruta) || files.get(i).subdirectorio(ruta) == false){
+                files.get(i).setEliminado(true);
+            }
+        }
+    }
+    
     public void sobreescribirFile(String nombre, String ruta, String contenido, String extension){
         int largo = this.files.size();
+        String nombreSinExtension = nombre.split("\\.")[0];
         for(int i = 0 ; i < largo ; ++i){
-            if(files.get(i).getNombre().equals(nombre) && files.get(i).getRuta().equals(ruta)){
+            if(files.get(i).getNombreSinExtension().equals(nombreSinExtension) && files.get(i).getRuta().equals(ruta)){
                 files.get(i).setNombre(nombre);
                 files.get(i).setExtension(extension);
                 files.get(i).setContenido(contenido);
+                files.get(i).setTipo(extension);
                 return;
             }
         }

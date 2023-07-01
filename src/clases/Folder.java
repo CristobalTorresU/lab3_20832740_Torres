@@ -69,4 +69,25 @@ public class Folder {
     public void setEliminado(boolean eliminado){
         this.eliminado = eliminado;
     }
+    
+    
+    
+    // Otras Operaciones
+    public boolean subdirectorio(String ruta){
+        String[] rutaOriginal = ruta.split("/");
+        String[] rutaSub = getRuta().split("/");
+        int largo = rutaOriginal.length;
+
+        for(int i = 0 ; i < largo ; ++i){
+            if(rutaOriginal.length < rutaSub.length){
+                if(!rutaOriginal[i].equals(rutaSub[i])){
+                    return false;
+                }
+                
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
