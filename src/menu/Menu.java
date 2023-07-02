@@ -203,7 +203,6 @@ public class Menu {
                 controlSistema.mdkir(nombreCarpeta);
                 break;
             case 2:
-                // DIFICULTAD
                 System.out.println("Ingrese el nombre de la carpeta: ");
                 opcion.nextLine();
                 String nombreCarpetaEliminar = opcion.nextLine();
@@ -214,6 +213,12 @@ public class Menu {
                 break;
             case 4:
                 // DIFICULTAD
+                System.out.println("Ingrese el nombre de la carpeta: ");
+                opcion.nextLine();
+                String nombreCarpetaCopiar = opcion.nextLine();
+                System.out.println("Ingrese el nombre del directorio objetivo: ");
+                String nombreRutaCarpetaCopiar = opcion.nextLine();
+                controlSistema.copy(nombreCarpetaCopiar, nombreRutaCarpetaCopiar);
                 break;
             case 5:
                 // DIFICULTAD
@@ -238,7 +243,6 @@ public class Menu {
         System.out.println("\nIntroduzca su opción: ");
         
         // Introducir opción
-        //opcion.nextInt();
         alternativa = opcion.nextInt();
         
         switch(alternativa){
@@ -281,7 +285,17 @@ public class Menu {
             case 3:
                 break;
             case 4:
+                System.out.println("\nIngrese el nombre del archivo que desea copiar: ");
+                opcion.nextLine();
+                String nombreCopiar = opcion.nextLine();
+                System.out.println("\nIngrese el nombre de la ruta objetivo: ");
+                String nombreRutaCopiar = opcion.nextLine();
+                controlSistema.copy(nombreCopiar, nombreRutaCopiar);
                 break;
+            case 5:
+                break;
+            case 6:
+                return;
             default:
                 System.out.println("La opción introducida no existe");
         }

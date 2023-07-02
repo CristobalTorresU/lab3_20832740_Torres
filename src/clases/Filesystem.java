@@ -205,6 +205,72 @@ public class Filesystem {
         }
     }
     
+    public void copiarFolder(String source, String ruta, String target){
+        int largoF = getFolders().size();
+        String rutaF;
+        Folder folder;
+        for(int i = 0 ; i < largoF ; ++i){
+            rutaF = getFolders().get(i).getRuta();
+            if(rutaF.equals(ruta) || folders.get(i).subdirectorio(ruta) == false){
+                folder = new Folder(folders.get(i).getNombre(), target + source + "/", folders.get(i).getCreador());
+                agregarFolder(folder);
+            }
+        }
+        
+        int largoFi = getFiles().size();
+        String rutaFi;
+        File file;
+        for(int i = 0 ; i < largoFi ; ++i){
+            rutaFi = getFiles().get(i).getRuta();
+            if(rutaFi.equals(ruta) || files.get(i).subdirectorio(ruta) == false){
+                String extension = files.get(i).getExtension();
+                switch(extension){
+                    case "txt":
+                    case "md":
+                        file = new TextoPlano(files.get(i).getNombre(), extension, files.get(i).getContenido(), target + source + "/");
+                        agregarFile(file);
+                        break;
+                    case "docx":
+                    case "pdf":
+                    case "tex":
+                        file = new Documento(files.get(i).getNombre(), extension, files.get(i).getContenido(), target + source + "/");
+                        agregarFile(file);
+                        break;
+                    case "py":
+                    case "c":
+                    case "java":
+                    case "rkt":
+                    case "pl":
+                        file = new CodigoFuente(files.get(i).getNombre(), extension, files.get(i).getContenido(), target + source + "/");
+                        agregarFile(file);
+                        break;
+                }
+            }
+        }
+    }
+    
+    public File getFile(String nombre, String ruta){
+        int largo = getFiles().size();
+        for(int i = 0 ; i < largo ; ++i){
+            File file = files.get(i);
+            if(file.getNombreSinExtension().equals(nombre) && file.getRuta().equals(ruta)){
+                return file;
+            }
+        }
+        return null;
+    }
+    
+    public Folder getFolder(String ruta){
+        int largo = getFolders().size();
+        for(int i = 0 ; i < largo ; ++i){
+            Folder folder = folders.get(i);
+            if(folder.getRuta().equals(ruta)){
+                return folder;
+            }
+        }
+        return null;
+    }
+    
     public void sobreescribirFile(String nombre, String ruta, String contenido, String extension){
         int largo = this.files.size();
         String nombreSinExtension = nombre.split("\\.")[0];

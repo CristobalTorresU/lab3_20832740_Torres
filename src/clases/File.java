@@ -1,5 +1,7 @@
 package clases;
 
+import java.time.Instant;
+
 public class File {
     // Atributos
     protected String nombre;
@@ -86,6 +88,10 @@ public class File {
     
     public void setEliminado(boolean eliminado){
         this.eliminado = eliminado;
+    }
+    
+    public void actualizarFechaCreacion(){
+        this.fechaCreacion = Instant.now().toEpochMilli();
     }
     
     

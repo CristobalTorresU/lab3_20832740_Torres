@@ -169,10 +169,46 @@ public class Control {
         }
     }
     
-    /*
-    public void copy(){
-        
-    }*/
+    
+    public void copy(String source, String target){
+        // Archivo
+        String rutaA = filesystem.getRutaActual();
+        if(filesystem.buscarFile(source, rutaA) && filesystem.buscarFolder(target) && !filesystem.buscarFile(source, target)){
+            File file;
+            String nombre = filesystem.getFile(source, filesystem.getRutaActual()).getNombre();
+            String extension = filesystem.getFile(source, filesystem.getRutaActual()).getExtension();
+            String contenido = filesystem.getFile(source, filesystem.getRutaActual()).getContenido();
+            switch(extension){
+                case "txt":
+                case "md":
+                    file = new TextoPlano(nombre, extension, contenido, target + source + "/");
+                    filesystem.agregarFile(file);
+                    break;
+                case "docx":
+                case "pdf":
+                case "tex":
+                    file = new Documento(nombre, extension, contenido, target + source + "/");
+                    filesystem.agregarFile(file);
+                    break;
+                case "py":
+                case "c":
+                case "java":
+                case "rkt":
+                case "pl":
+                    file = new CodigoFuente(nombre, extension, contenido, target + source + "/");
+                    filesystem.agregarFile(file);
+                    break;
+            }
+            System.out.println("El archivo fue copiado exitosamente.");
+        } else if(filesystem.buscarFolder(rutaA) && filesystem.buscarFolder(target) && !filesystem.buscarFolder(target + source + "/")) {  // Carpeta
+            filesystem.copiarFolder(source, rutaA + source + "/", target);
+            System.out.println("La carpeta fue copiada exitosamente.");
+        } else {
+            System.out.println(source);
+            System.out.println(target);
+            System.out.println("El nombre ingresado no existe.");
+        }
+    }
     
     /*
     public void move(){

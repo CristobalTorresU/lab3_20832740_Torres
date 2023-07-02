@@ -62,6 +62,10 @@ public class Folder {
         this.creador = creador;
     }
     
+    public void actualizarFechaCreacion(){
+        this.fechaCreacion = Instant.now().toEpochMilli();
+    }
+    
     public void actualizarFechaModificacion(){
         this.fechaModificacion = Instant.now().toEpochMilli();
     }
