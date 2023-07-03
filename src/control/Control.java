@@ -173,48 +173,64 @@ public class Control {
     public void copy(String source, String target){
         // Archivo
         String rutaA = filesystem.getRutaActual();
-        if(filesystem.buscarFile(source, rutaA) && filesystem.buscarFolder(target) && !filesystem.buscarFile(source, target)){
-            File file;
-            String nombre = filesystem.getFile(source, filesystem.getRutaActual()).getNombre();
-            String extension = filesystem.getFile(source, filesystem.getRutaActual()).getExtension();
-            String contenido = filesystem.getFile(source, filesystem.getRutaActual()).getContenido();
+        if(filesystem.buscarFile(source.split("\\.")[0], rutaA) == true && filesystem.buscarFolder(target) == true && filesystem.buscarFile(source.split("\\.")[0], target) == false){
+            File newFile;
+            String nombre = filesystem.getFile(source.split("\\.")[0], filesystem.getRutaActual()).getNombre();
+            String extension = filesystem.getFile(source.split("\\.")[0], filesystem.getRutaActual()).getExtension();
+            String contenido = filesystem.getFile(source.split("\\.")[0], filesystem.getRutaActual()).getContenido();
             switch(extension){
                 case "txt":
                 case "md":
-                    file = new TextoPlano(nombre, extension, contenido, target + source + "/");
-                    filesystem.agregarFile(file);
+                    newFile = new TextoPlano(nombre, extension, contenido, target);
+                    filesystem.agregarFile(newFile);
                     break;
                 case "docx":
                 case "pdf":
                 case "tex":
-                    file = new Documento(nombre, extension, contenido, target + source + "/");
-                    filesystem.agregarFile(file);
+                    newFile = new Documento(nombre, extension, contenido, target);
+                    filesystem.agregarFile(newFile);
                     break;
                 case "py":
                 case "c":
                 case "java":
                 case "rkt":
                 case "pl":
-                    file = new CodigoFuente(nombre, extension, contenido, target + source + "/");
-                    filesystem.agregarFile(file);
+                    newFile = new CodigoFuente(nombre, extension, contenido, target);
+                    filesystem.agregarFile(newFile);
                     break;
             }
             System.out.println("El archivo fue copiado exitosamente.");
-        } else if(filesystem.buscarFolder(rutaA) && filesystem.buscarFolder(target) && !filesystem.buscarFolder(target + source + "/")) {  // Carpeta
+        } else if(source.split("\\.").length != 2 && filesystem.buscarFolder(rutaA) && filesystem.buscarFolder(target) && !filesystem.buscarFolder(target + source + "/")) {  // Carpeta
             filesystem.copiarFolder(source, rutaA + source + "/", target);
             System.out.println("La carpeta fue copiada exitosamente.");
         } else {
-            System.out.println(source);
-            System.out.println(target);
             System.out.println("El nombre ingresado no existe.");
         }
     }
     
-    /*
-    public void move(){
-    
+    public void move(String source, String target){
+        // Archivo
+        String rutaA = filesystem.getRutaActual();
+        if(filesystem.buscarFile(source.split("\\.")[0], rutaA) == true && filesystem.buscarFolder(target) == true){
+            if(filesystem.buscarFile(source.split("\\.")[0], target) == false){
+                filesystem.getFile(source.split("\\.")[0], filesystem.getRutaActual()).setRuta(target);
+                System.out.println("El archivo se movió exitosamente.");
+            } else if(filesystem.buscarFile(source.split("\\.")[0], target) == true){
+                String nombre = filesystem.getFile(source.split("\\.")[0], filesystem.getRutaActual()).getNombre();
+                // String ruta = filesystem.getFile(source.split("\\.")[0], filesystem.getRutaActual()).getRuta();
+                String contenido = filesystem.getFile(source.split("\\.")[0], filesystem.getRutaActual()).getContenido();
+                String extension = filesystem.getFile(source.split("\\.")[0], filesystem.getRutaActual()).getExtension();
+                filesystem.sobreescribirFile(nombre, target, contenido, extension);
+                filesystem.desaparecerFile(source, rutaA);
+                System.out.println("El archivo se sobreescribió exitosamente.");
+            }
+        } else if(source.split("\\.").length != 2 && filesystem.buscarFolder(rutaA) && filesystem.buscarFolder(target) && !filesystem.buscarFolder(target + source + "/")) {  // Carpeta
+            filesystem.copiarFolder(source, rutaA + source + "/", target);
+            System.out.println("La carpeta se movió exitosamente.");
+        } else {
+            System.out.println("El nombre ingresado no existe.");
+        }
     }
-    */
     
     /*
     public void ren(){

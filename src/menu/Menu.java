@@ -293,6 +293,12 @@ public class Menu {
                 controlSistema.copy(nombreCopiar, nombreRutaCopiar);
                 break;
             case 5:
+                System.out.println("\nIngrese el nombre del archivo que desea mover: ");
+                opcion.nextLine();
+                String nombreMover = opcion.nextLine();
+                System.out.println("\nIngrese el nombre de la ruta objetivo: ");
+                String nombreRutaMover = opcion.nextLine();
+                controlSistema.move(nombreMover, nombreRutaMover);
                 break;
             case 6:
                 return;

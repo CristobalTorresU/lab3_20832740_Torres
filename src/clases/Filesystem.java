@@ -249,6 +249,40 @@ public class Filesystem {
         }
     }
     
+    /*
+    public void copiarFile(String source, String target){
+        int largoFi = getFiles().size();
+        String rutaFi;
+        File file;
+        for(int i = 0 ; i < largoFi ; ++i){
+            rutaFi = getFiles().get(i).getRuta();
+            if(rutaFi.equals(ruta) || files.get(i).subdirectorio(ruta) == false){
+                String extension = files.get(i).getExtension();
+                switch(extension){
+                    case "txt":
+                    case "md":
+                        file = new TextoPlano(files.get(i).getNombre(), extension, files.get(i).getContenido(), target + source + "/");
+                        agregarFile(file);
+                        break;
+                    case "docx":
+                    case "pdf":
+                    case "tex":
+                        file = new Documento(files.get(i).getNombre(), extension, files.get(i).getContenido(), target + source + "/");
+                        agregarFile(file);
+                        break;
+                    case "py":
+                    case "c":
+                    case "java":
+                    case "rkt":
+                    case "pl":
+                        file = new CodigoFuente(files.get(i).getNombre(), extension, files.get(i).getContenido(), target + source + "/");
+                        agregarFile(file);
+                        break;
+                }
+            }
+        }
+    }*/
+    
     public File getFile(String nombre, String ruta){
         int largo = getFiles().size();
         for(int i = 0 ; i < largo ; ++i){
@@ -284,4 +318,20 @@ public class Filesystem {
             }
         }
     }
+    
+    public void desaparecerFile(String nombre, String ruta){
+        int largo = files.size();
+        for(int i = 0 ; i < largo ; ++i){
+            if(files.get(i).getNombre().equals(nombre) && files.get(i).getRuta().equals(ruta)){
+                files.remove(i);
+                return;
+            }
+        }
+    }
+    
+    /*
+    public void desaparecerFolder(){
+    
+    }
+    */
 }
