@@ -225,7 +225,7 @@ public class Control {
                 System.out.println("El archivo se sobreescribió exitosamente.");
             }
         } else if(source.split("\\.").length != 2 && filesystem.buscarFolder(rutaA) && filesystem.buscarFolder(target) && !filesystem.buscarFolder(target + source + "/")) {  // Carpeta
-            filesystem.copiarFolder(source, rutaA + source + "/", target);
+            filesystem.moverFolder(source, rutaA + source + "/", target);
             System.out.println("La carpeta se movió exitosamente.");
         } else {
             System.out.println("El nombre ingresado no existe.");

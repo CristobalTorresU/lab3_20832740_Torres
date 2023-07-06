@@ -212,7 +212,6 @@ public class Menu {
                 // DIFICULTAD
                 break;
             case 4:
-                // DIFICULTAD
                 System.out.println("Ingrese el nombre de la carpeta: ");
                 opcion.nextLine();
                 String nombreCarpetaCopiar = opcion.nextLine();
@@ -221,7 +220,12 @@ public class Menu {
                 controlSistema.copy(nombreCarpetaCopiar, nombreRutaCarpetaCopiar);
                 break;
             case 5:
-                // DIFICULTAD
+                System.out.println("\nIngrese el nombre de la carpeta que desea mover: ");
+                opcion.nextLine();
+                String nombreMover = opcion.nextLine();
+                System.out.println("\nIngrese el nombre de la ruta objetivo: ");
+                String nombreRutaMover = opcion.nextLine();
+                controlSistema.move(nombreMover, nombreRutaMover);
                 break;
             case 6:
                 return;

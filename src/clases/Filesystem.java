@@ -192,7 +192,7 @@ public class Filesystem {
             rutaF = getFolders().get(i).getRuta();
             if(rutaF.equals(ruta) || folders.get(i).subdirectorio(ruta) == false){
                 folders.get(i).setEliminado(true);
-            } // || folders.get(i).subdirectorio(ruta) == true
+            }
         }
         
         int largoFi = getFiles().size();
@@ -249,39 +249,29 @@ public class Filesystem {
         }
     }
     
-    /*
-    public void copiarFile(String source, String target){
-        int largoFi = getFiles().size();
-        String rutaFi;
-        File file;
-        for(int i = 0 ; i < largoFi ; ++i){
-            rutaFi = getFiles().get(i).getRuta();
-            if(rutaFi.equals(ruta) || files.get(i).subdirectorio(ruta) == false){
-                String extension = files.get(i).getExtension();
-                switch(extension){
-                    case "txt":
-                    case "md":
-                        file = new TextoPlano(files.get(i).getNombre(), extension, files.get(i).getContenido(), target + source + "/");
-                        agregarFile(file);
-                        break;
-                    case "docx":
-                    case "pdf":
-                    case "tex":
-                        file = new Documento(files.get(i).getNombre(), extension, files.get(i).getContenido(), target + source + "/");
-                        agregarFile(file);
-                        break;
-                    case "py":
-                    case "c":
-                    case "java":
-                    case "rkt":
-                    case "pl":
-                        file = new CodigoFuente(files.get(i).getNombre(), extension, files.get(i).getContenido(), target + source + "/");
-                        agregarFile(file);
-                        break;
-                }
+    public void moverFolder(String source, String ruta, String target){
+        int largoF = getFolders().size();
+        String rutaF;
+        for(int i = 0 ; i < largoF ; ++i){
+            rutaF = getFolders().get(i).getRuta();
+            if(rutaF.equals(ruta)){
+                folders.get(i).setRuta(target + source + "/");
+            } else if(folders.get(i).subdirectorio(ruta) == false){
+                folders.get(i).setRuta(cambiarRuta(ruta.split("/").length, folders.get(i).getRuta(), target + source + "/"));
             }
         }
-    }*/
+        
+        int largoFi = getFiles().size();
+        String rutaFi;
+        for(int i = 0 ; i < largoFi ; ++i){
+            rutaFi = getFiles().get(i).getRuta();
+            if(rutaFi.equals(ruta)){
+                getFiles().get(i).setRuta(target + source + "/");
+            } else if(files.get(i).subdirectorio(ruta) == false){
+                getFiles().get(i).setRuta(cambiarRuta(ruta.split("/").length, getFiles().get(i).getRuta() , target + source + "/"));
+            }
+        }
+    }
     
     public File getFile(String nombre, String ruta){
         int largo = getFiles().size();
@@ -329,9 +319,20 @@ public class Filesystem {
         }
     }
     
-    /*
-    public void desaparecerFolder(){
-    
+    public String cambiarRuta(int n, String rutaOriginal, String fuenteNueva){
+        String[] rO = rutaOriginal.split("/");
+        int largoRestante = rO.length;
+        String rutaSinFuente = "";
+        
+        for(int i = n ; i < largoRestante ; ++i){
+            rutaSinFuente += rO[i] + "/";
+        }
+        //System.out.println(rutaSinFuente);
+        
+        String rutaNueva = fuenteNueva + rutaSinFuente;
+        
+        //System.out.println(rutaNueva);
+        
+        return rutaNueva;
     }
-    */
 }
