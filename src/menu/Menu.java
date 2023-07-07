@@ -209,7 +209,12 @@ public class Menu {
                 controlSistema.del(nombreCarpetaEliminar);
                 break;
             case 3:
-                // DIFICULTAD
+                System.out.println("Ingrese el nombre de la carpeta que desea renombrar: ");
+                opcion.nextLine();
+                String nombreRenombrar = opcion.nextLine();
+                System.out.println("Ingrese el nuevo nombre: ");
+                String nombreNuevo = opcion.nextLine();
+                controlSistema.ren(nombreRenombrar, nombreNuevo);
                 break;
             case 4:
                 System.out.println("Ingrese el nombre de la carpeta: ");
@@ -287,6 +292,12 @@ public class Menu {
                 controlSistema.del(nombreEliminar);
                 break;
             case 3:
+                System.out.println("\nIngrese el nombre del archivo que desea renombrar: ");
+                opcion.nextLine();
+                String nombreCambiar = opcion.nextLine();
+                System.out.println("\nIngrese el nuevo nombre: ");
+                String nuevoNombre = opcion.nextLine();
+                controlSistema.ren(nombreCambiar, nuevoNombre);
                 break;
             case 4:
                 System.out.println("\nIngrese el nombre del archivo que desea copiar: ");

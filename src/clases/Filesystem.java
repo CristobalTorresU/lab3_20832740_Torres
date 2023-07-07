@@ -176,6 +176,18 @@ public class Filesystem {
         return false;
     }
     
+    public boolean buscarFileConExtension(String nombre, String ruta){
+        int largo = this.files.size();
+        for(int i = 0 ; i < largo ; ++i){
+            File file = files.get(i);
+            if(file.getNombre().equals(nombre) && file.getRuta().equals(ruta)){
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
     public void eliminarFile(String nombre, String ruta){
         int largo = this.files.size();
         for(int i = 0 ; i < largo ; ++i){
@@ -327,12 +339,19 @@ public class Filesystem {
         for(int i = n ; i < largoRestante ; ++i){
             rutaSinFuente += rO[i] + "/";
         }
-        //System.out.println(rutaSinFuente);
-        
         String rutaNueva = fuenteNueva + rutaSinFuente;
-        
-        //System.out.println(rutaNueva);
-        
         return rutaNueva;
+    }
+    
+    public void renombrarCarpetas(String currentName, String newName){
+        int largo = getFolders().size();
+        int n = (getRutaActual()+newName+"/").split("/").length;
+        for(int i = 0 ; i < largo ; ++i){
+                if(getFolders().get(i).getRuta().equals(getRutaActual()+currentName+"/") == true){
+                    folders.get(i).cambiarNombre(newName);
+                } else if(getFolders().get(i).subdirectorio(getRutaActual()+currentName+"/") == false){
+                    folders.get(i).setRuta(cambiarRuta(n, folders.get(i).getRuta(), getRutaActual()+newName+"/"));
+                }
+        }
     }
 }

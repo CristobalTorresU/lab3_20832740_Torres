@@ -94,4 +94,16 @@ public class Folder {
 
         return true;
     }
+    
+    public void cambiarNombre(String nombre){
+        String[] rutaOriginal = getRuta().split("/");
+        int n = rutaOriginal.length;
+        String resultado = "";
+        for(int i = 0 ; i < n - 1 ; ++i){
+            resultado += rutaOriginal[i] + "/";
+        }
+        resultado += nombre + "/";
+        setRuta(resultado);
+        setNombre(nombre);
+    }
 }

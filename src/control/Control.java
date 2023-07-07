@@ -232,11 +232,19 @@ public class Control {
         }
     }
     
-    /*
-    public void ren(){
-    
+    public void ren(String currentName, String newName){
+        String rutaA = filesystem.getRutaActual();
+        // Archivo
+        if(filesystem.buscarFileConExtension(currentName, rutaA) == true){
+            filesystem.getFile(currentName.split("\\.")[0], rutaA).setRuta(newName);
+            System.out.println("El archivo se renombró exitosamente.");
+        } else if(filesystem.buscarFolder(rutaA+currentName+"/") == true){ // Carpeta
+            filesystem.renombrarCarpetas(currentName,newName);
+            System.out.println("La carpeta se renombró exitosamente.");
+        } else {
+            System.out.println("El nombre ingresado no existe.");
+        }
     }
-    */
     
     /*
     public void dir(){
