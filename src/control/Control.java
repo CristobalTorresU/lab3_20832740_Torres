@@ -1,6 +1,7 @@
 package control;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import clases.*;
 
 public class Control {
@@ -245,16 +246,124 @@ public class Control {
             System.out.println("El nombre ingresado no existe.");
         }
     }
-    
-    /*
-    public void dir(){
-    
+
+    public void dir(ArrayList<String> params){
+        String salida = "";
+        int largo;
+        int n;
+        
+        if(params.contains("") == true){
+            salida += filesystem.getRutaActual();
+            largo = filesystem.getFolders().size();
+            n = filesystem.getRutaActual().split("/").length;
+            for(int i = 0 ; i < largo ; ++i){
+                if(filesystem.getFolders().get(i).getEliminado() == false && filesystem.getFolders().get(i).subdirectorio(filesystem.getRutaActual()) == false && filesystem.getFolders().get(i).getRuta().split("/").length == n+1){
+                   salida += "\n" + filesystem.getFolders().get(i).getNombre();
+                }
+            }
+            largo = filesystem.getFiles().size();
+            for(int i = 0 ; i < largo ; ++i){
+                if(filesystem.getFiles().get(i).getEliminado() == false && filesystem.getFiles().get(i).getRuta().equals(filesystem.getRutaActual())){
+                    salida += "\n" + filesystem.getFiles().get(i).getNombre();
+                }
+            }
+            System.out.println(salida);
+        } else if(params.contains("/a") == true && params.contains("/s") == true){
+            
+        } else if(params.contains("/s") == true){
+            
+        } else if(params.contains("/a") == true){
+            
+        } else if(params.contains("/o N") == true){
+            salida += filesystem.getRutaActual();
+            ArrayList<String> nombres = new ArrayList<>();
+            largo = filesystem.getFolders().size();
+            n = filesystem.getRutaActual().split("/").length;
+            for(int i = 0 ; i < largo ; ++i){
+                if(filesystem.getFolders().get(i).getEliminado() == false && filesystem.getFolders().get(i).subdirectorio(filesystem.getRutaActual()) == false && filesystem.getFolders().get(i).getRuta().split("/").length == n+1){
+                    nombres.add(filesystem.getFolders().get(i).getNombre());
+                }
+            }
+            largo = filesystem.getFiles().size();
+            for(int i = 0 ; i < largo ; ++i){
+                if(filesystem.getFiles().get(i).getEliminado() == false && filesystem.getFiles().get(i).getRuta().equals(filesystem.getRutaActual())){
+                    nombres.add(filesystem.getFiles().get(i).getNombre());
+                }
+            }
+            nombres.sort(Comparator.naturalOrder());
+            largo = nombres.size();
+            for(int i = 0 ; i < largo ; ++i){
+                salida += "\n" + nombres.get(i);
+            }
+            System.out.println(salida);
+        } else if(params.contains("/o -N") == true){
+            salida += filesystem.getRutaActual();
+            ArrayList<String> nombres = new ArrayList<>();
+            largo = filesystem.getFolders().size();
+            n = filesystem.getRutaActual().split("/").length;
+            for(int i = 0 ; i < largo ; ++i){
+                if(filesystem.getFolders().get(i).getEliminado() == false && filesystem.getFolders().get(i).subdirectorio(filesystem.getRutaActual()) == false && filesystem.getFolders().get(i).getRuta().split("/").length == n+1){
+                    nombres.add(filesystem.getFolders().get(i).getNombre());
+                }
+            }
+            largo = filesystem.getFiles().size();
+            for(int i = 0 ; i < largo ; ++i){
+                if(filesystem.getFiles().get(i).getEliminado() == false && filesystem.getFiles().get(i).getRuta().equals(filesystem.getRutaActual())){
+                    nombres.add(filesystem.getFiles().get(i).getNombre());
+                }
+            }
+            nombres.sort(Comparator.reverseOrder());
+            largo = nombres.size();
+            for(int i = 0 ; i < largo ; ++i){
+                salida += "\n" + nombres.get(i);
+            }
+            System.out.println(salida);
+            /*
+        } else if(params.contains("/o D") == true){
+            salida += filesystem.getRutaActual();
+            ArrayList<String> nombres = new ArrayList<>();
+            largo = filesystem.getFolders().size();
+            n = filesystem.getRutaActual().split("/").length;
+            for(int i = 0 ; i < largo ; ++i){
+                if(filesystem.getFolders().get(i).getEliminado() == false && filesystem.getFolders().get(i).subdirectorio(filesystem.getRutaActual()) == false && filesystem.getFolders().get(i).getRuta().split("/").length == n+1){
+                    nombres.add(filesystem.getFolders().get(i).getNombre());
+                }
+            }
+            largo = filesystem.getFiles().size();
+            for(int i = 0 ; i < largo ; ++i){
+                if(filesystem.getFiles().get(i).getEliminado() == false && filesystem.getFiles().get(i).getRuta().equals(filesystem.getRutaActual())){
+                    nombres.add(filesystem.getFiles().get(i).getNombre());
+                }
+            }
+            nombres.sort(Comparator.reverseOrder());
+            largo = nombres.size();
+            for(int i = 0 ; i < largo ; ++i){
+                salida += "\n" + nombres.get(i);
+            }
+            
+            
+            
+            for(int i = 0 ; i <  ; ++i){
+                for(int j = 0 ; j <  ; ++j){
+                    
+                }
+            }
+            System.out.println(salida);
+        } else if(params.contains("/o -D") == true){*/
+            
+        } else if(params.contains("/?") == true){
+            salida += "\nSe puede utilizar:\n";
+            salida += "/s          lista el contenido del directorio actual y todos los subdirectorios\n";
+            salida += "/a          lista el contenido del directorio actual incluyendo contenido oculto\n";
+            salida += "/o [-]N     lista el contenido del directorio actual en orden alfabético ascendente o descendente '-'\n";
+            salida += "/o [-]D     lista el contenido del directorio actual ordenado por la fecha de creación de forma ascendente o descendente '-'\n";
+            salida += "/?          muestra este panel\n";
+            System.out.println(salida);
+        }
+            
     }
-    */
-    
-    /*
+
     public void format(){
     
     }
-    */
 }

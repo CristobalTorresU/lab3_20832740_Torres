@@ -2,6 +2,7 @@ package menu;
 
 import control.Control;
 import java.util.Scanner;
+import java.util.ArrayList;
 import clases.*;
 
 public class Menu {
@@ -33,7 +34,8 @@ public class Menu {
             System.out.println("1. Crear un Sistema de Archivos");
             System.out.println("2. Modificar un Sistema de Archivos");
             System.out.println("3. Visualizar Sistema de Archivos");
-            System.out.println("4. Salir");
+            System.out.println("4. Visualizar Directorio");
+            System.out.println("5. Salir");
             System.out.println("\nIntroduzca su opción: ");
             
             // Introducir opción
@@ -54,6 +56,25 @@ public class Menu {
                     menuVisualizar(opcion);
                     break;
                 case 4:
+                    System.out.println("Introduzca los parámetros: ");
+                    opcion.nextLine();
+                    String params = opcion.nextLine();
+                    String[] paramsArray = params.split(",");
+                    int largo = paramsArray.length;
+                    ArrayList<String> paramsAL = new ArrayList<>();
+                    for(int i = 0 ; i < largo ; ++i){
+                        paramsArray[i] = paramsArray[i].split("\\[")[0];
+                        paramsArray[i] = paramsArray[i].split("\\]")[0];
+                        paramsAL.add(paramsArray[i]);
+                    }
+                    controlSistema.dir(paramsAL);
+                    // System.out.println(paramsAL);
+                    /*
+                    for(int i = 0 ; i < paramsAL.size() ; ++i){
+                        System.out.println(paramsAL.get(i));
+                    }*/
+                    break;
+                case 5:
                     System.out.println("Hasta pronto");
                     return;
                 default:
