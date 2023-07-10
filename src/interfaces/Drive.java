@@ -1,8 +1,6 @@
 package interfaces;
 
 public interface Drive {
-    // Constructor
-    public void Drive(char letter, String name, int capacity);
     // Selectores
     public char getLetra();
     public String getName();
