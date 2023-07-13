@@ -1,12 +1,12 @@
 package interfaces;
 
-public interface Drive {
+public interface IDrive {
     // Selectores
-    public char getLetra();
+    public String getLetra();
     public String getName();
     public int getCapacity();
     // Modificadores
-    public void setLetra(char letter);
+    public void setLetra(String letter);
     public void setName(String name);
     public void setCapacity(int capacity);
 }

@@ -1,8 +1,9 @@
 package clases;
 
 import java.time.Instant;
+import interfaces.IFile;
 
-public class File {
+public class File implements IFile{
     // Atributos
     protected String nombre;
     protected String tipo;
@@ -14,34 +15,42 @@ public class File {
     
     // Métodos
     // Selectores
+    @Override
     public String getNombre(){
         return nombre;
     }
     
+    @Override
     public String getNombreSinExtension(){
         return nombre.split("\\.")[0];
     }
     
+    @Override
     public String getExtension(){
         return extension;
     }
     
+    @Override
     public String getRuta(){
         return ruta;
     }
     
+    @Override
     public String getContenido(){
         return contenido;
     }
     
+    @Override
     public long getFechaCreacion(){
         return fechaCreacion;
     }
     
+    @Override
     public boolean getEliminado(){
         return eliminado;
     }
     
+    @Override
     public String getTipo(){
         return tipo;
     }
@@ -49,10 +58,12 @@ public class File {
     
     
     // Modificadores
+    @Override
     public void setNombre(String nombre){
         this.nombre = nombre;
     }
     
+    @Override
     public void setTipo(String extension){
         switch(extension){
             case "txt":
@@ -74,22 +85,27 @@ public class File {
         }
     }
     
+    @Override
     public void setExtension(String extension){
         this.extension = extension;
     }
     
+    @Override
     public void setRuta(String ruta){
         this.ruta = ruta;
     }
     
+    @Override
     public void setContenido(String contenido){
         this.contenido = contenido;
     }
     
+    @Override
     public void setEliminado(boolean eliminado){
         this.eliminado = eliminado;
     }
     
+    @Override
     public void actualizarFechaCreacion(){
         this.fechaCreacion = Instant.now().toEpochMilli();
     }
@@ -97,6 +113,7 @@ public class File {
     
     
     // Otras Operaciones
+    @Override
     public boolean subdirectorio(String ruta){
         String[] rutaOriginal = ruta.split("/");
         String[] rutaSub = getRuta().split("/");

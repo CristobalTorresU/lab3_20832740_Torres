@@ -157,6 +157,12 @@ public class Menu {
                 controlSistema.switchDrive(letterUnidadCambiar);
                 break;
             case 3:
+                System.out.println("Ingrese la letra de la unidad: ");
+                opcion.nextLine();
+                String letterUnidadFormatear = opcion.nextLine();
+                System.out.println("Ingrese el nombre de la unidad: ");
+                String nameUnidadFormatear = opcion.nextLine();
+                controlSistema.format(letterUnidadFormatear, nameUnidadFormatear);
                 break;
             case 4:
                 return;

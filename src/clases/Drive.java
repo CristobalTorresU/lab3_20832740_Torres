@@ -1,8 +1,9 @@
 package clases;
 
 import clases.*;
+import interfaces.IDrive;
 
-public class Drive {
+public class Drive implements IDrive{
     // Atributos
     private String letter;
     private String name;
@@ -20,14 +21,17 @@ public class Drive {
 
 
     // Selectores
+    @Override
     public String getLetra(){
         return letter;
     }
     
+    @Override
     public String getName(){
         return name;
     }
     
+    @Override
     public int getCapacity(){
         return capacity;
     }
@@ -35,14 +39,17 @@ public class Drive {
 
 
     // Modificadores
+    @Override
     public void setLetra(String letter){
         this.letter = letter;
     }
     
+    @Override
     public void setName(String name){
         this.name = name;
     }
     
+    @Override
     public void setCapacity(int capacity){
         this.capacity = capacity;
     }

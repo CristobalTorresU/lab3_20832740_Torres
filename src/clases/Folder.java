@@ -1,8 +1,9 @@
 package clases;
 
 import java.time.Instant;
+import interfaces.IFolder;
 
-public class Folder {
+public class Folder implements IFolder{
     // Atributos
     private String nombre;
     private String ruta;
@@ -23,26 +24,32 @@ public class Folder {
     }
     
     // Selectores
+    @Override
     public String getNombre(){
         return nombre;
     }
     
+    @Override
     public String getRuta(){
         return ruta;
     }
     
+    @Override
     public String getCreador(){
         return creador;
     }
     
+    @Override
     public long getFechaCreacion(){
         return fechaCreacion;
     }
     
+    @Override
     public long getFechaModificacion(){
         return fechaModificacion;
     }
     
+    @Override
     public boolean getEliminado(){
         return eliminado;
     }
@@ -50,26 +57,32 @@ public class Folder {
     
     
     // Modificadores
+    @Override
     public void setNombre(String nombre){
         this.nombre = nombre;
     }
     
+    @Override
     public void setRuta(String ruta){
         this.ruta = ruta;
     }
     
+    @Override
     public void setCreador(String creador){
         this.creador = creador;
     }
     
+    @Override
     public void actualizarFechaCreacion(){
         this.fechaCreacion = Instant.now().toEpochMilli();
     }
     
+    @Override
     public void actualizarFechaModificacion(){
         this.fechaModificacion = Instant.now().toEpochMilli();
     }
     
+    @Override
     public void setEliminado(boolean eliminado){
         this.eliminado = eliminado;
     }
@@ -77,6 +90,7 @@ public class Folder {
     
     
     // Otras Operaciones
+    @Override
     public boolean subdirectorio(String ruta){
         String[] rutaOriginal = ruta.split("/");
         String[] rutaSub = getRuta().split("/");
@@ -95,6 +109,7 @@ public class Folder {
         return true;
     }
     
+    @Override
     public void cambiarNombre(String nombre){
         String[] rutaOriginal = getRuta().split("/");
         int n = rutaOriginal.length;

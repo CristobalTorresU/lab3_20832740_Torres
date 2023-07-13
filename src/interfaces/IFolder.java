@@ -1,25 +1,23 @@
 package interfaces;
 
-public interface File {
+public interface IFolder {
     // Selectores
     public String getNombre();
-    public String getNombreSinExtension();
-    public String getExtension();
     public String getRuta();
-    public String getContenido();
+    public String getCreador();
     public long getFechaCreacion();
+    public long getFechaModificacion();
     public boolean getEliminado();
-    public String getTipo();
     
     // Modificadores
     public void setNombre(String nombre);
-    public void setTipo(String extension);
-    public void setExtension(String extension);
     public void setRuta(String ruta);
-    public void setContenido(String contenido);
-    public void setEliminado(boolean eliminado);
+    public void setCreador(String creador);
     public void actualizarFechaCreacion();
+    public void actualizarFechaModificacion();
+    public void setEliminado(boolean eliminado);
     
     // Otras Operaciones
     public boolean subdirectorio(String ruta);
+    public void cambiarNombre(String nombre);
 }

@@ -2,6 +2,7 @@ package control;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+//import interfaces.IFilesystem;
 import clases.*;
 
 public class Control {
@@ -131,6 +132,7 @@ public class Control {
 
         if(filesystem.buscarFolder(path)){
             filesystem.setRutaActual(path);
+            filesystem.setDriveActual(path.split("/")[0]);
             System.out.println("Se cambió a la ruta satisfactoriamente.");
         } else if(filesystem.buscarFolder(ruta)== true){ // Verificar que la carpeta exista
             filesystem.setRutaActual(ruta);
@@ -363,7 +365,86 @@ public class Control {
             
     }
 
-    public void format(){
-    
+    public void format(String letter, String name){
+        int largo;
+        // Verificar que el drive exista
+        if(filesystem.buscarDrive(letter) == true && filesystem.getDriveActual().equals(letter) == false){
+            // Eliminar carpetas
+            largo = filesystem.getFolders().size();
+            System.out.println(largo);
+            for(int i = 0 ; i < largo ; ++i){
+                if(filesystem.getFolders().get(i).getRuta().split(":/")[0].equals(letter) && !filesystem.getFolders().get(i).getRuta().equals(letter + ":/")){
+                    filesystem.getFolders().remove(i);
+                    largo -= 1;
+                    i -= 1;
+                    /*System.out.println("\nMod:");
+                    for(int j = 0 ; j < largo ; ++j){
+                        System.out.println(filesystem.getFolders().get(j).getRuta());
+                        System.out.println("");
+                    }*/
+                }
+            }
+            
+            // Eliminar archivos
+            largo = filesystem.getFiles().size();
+            for(int i = 0 ; i < largo ; ++i){
+                if(filesystem.getFiles().get(i).subdirectorio(letter + ":/") == false || filesystem.getFiles().get(i).getRuta().equals(letter + ":/")){
+                    filesystem.getFiles().remove(i);
+                    largo -= 1;
+                    i -= 1;
+                }
+            }
+            
+            // Buscar Drive
+            largo = filesystem.getDrives().size();
+            for(int i = 0 ; i < largo ; ++i){
+                if(filesystem.getDrives().get(i).getLetra().equals(letter)){
+                    filesystem.getDrives().get(i).setName(name);
+                    break;
+                }
+            }
+            System.out.println("La unidad fue formateada exitosamente.");
+
+        } else if(filesystem.buscarDrive(letter) == true){ // Es el mismo en que uno se encuentra.
+            // Eliminar carpetas
+            largo = filesystem.getFolders().size();
+            System.out.println(largo);
+            for(int i = 0 ; i < largo ; ++i){
+                if(filesystem.getFolders().get(i).getRuta().split(":/")[0].equals(letter) && !filesystem.getFolders().get(i).getRuta().equals(letter + ":/")){
+                    filesystem.getFolders().remove(i);
+                    largo -= 1;
+                    i -= 1;
+                    /*System.out.println("\nMod:");
+                    for(int j = 0 ; j < largo ; ++j){
+                        System.out.println(filesystem.getFolders().get(j).getRuta());
+                        System.out.println("");
+                    }*/
+                }
+            }
+            
+            // Eliminar archivos
+            largo = filesystem.getFiles().size();
+            for(int i = 0 ; i < largo ; ++i){
+                if(filesystem.getFiles().get(i).subdirectorio(letter + ":/") == false || filesystem.getFiles().get(i).getRuta().equals(letter + ":/")){
+                    filesystem.getFiles().remove(i);
+                    largo -= 1;
+                    i -= 1;
+                }
+            }
+            
+            // Buscar Drive
+            largo = filesystem.getDrives().size();
+            for(int i = 0 ; i < largo ; ++i){
+                if(filesystem.getDrives().get(i).getLetra().equals(letter)){
+                    filesystem.getDrives().get(i).setName(name);
+                    break;
+                }
+            }
+            // Cambiar Ruta Actual
+            filesystem.setRutaActual(letter + ":/");
+            System.out.println("La unidad fue formateada exitosamente.");
+        } else {
+            System.out.println("La unidad ingresada no existe.");
+        }
     }
 }

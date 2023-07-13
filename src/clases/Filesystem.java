@@ -3,22 +3,32 @@ package clases;
 import java.time.Instant;
 import java.util.ArrayList;
 import clases.*;
+import interfaces.*;
 
-public class Filesystem {
+/**
+ *
+ * @author Usach
+ */
+public class Filesystem implements IFilesystem{
     // Atributos
     private String name;
     private long fechaCreacion;
     private String loggedUser;
     private String driveActual;
     private String rutaActual;
-    private ArrayList<Drive> drives;
-    private ArrayList<User> users;
-    private ArrayList<Folder> folders;
-    private ArrayList<File> files;
+    private ArrayList<IDrive> drives;
+    private ArrayList<IUser> users;
+    private ArrayList<IFolder> folders;
+    private ArrayList<IFile> files;
     
     // Métodos
     
     // Constructor
+
+    /**
+     *
+     * @param name
+     */
     public Filesystem(String name){
         this.name = name;
         this.fechaCreacion = Instant.now().toEpochMilli();
@@ -32,39 +42,48 @@ public class Filesystem {
     }
     
     // Selectores
+    @Override
     public String getName(){
         return name;
     }
     
+    @Override
     public long getFechaCreacion(){
         return fechaCreacion;
     }
     
-    public ArrayList<Drive> getDrives(){
+    @Override
+    public ArrayList<IDrive> getDrives(){
         return drives;
     }
     
+    @Override
     public String getLoggedUser(){
         return loggedUser;
     }
     
-    public ArrayList<User> getUsers(){
+    @Override
+    public ArrayList<IUser> getUsers(){
         return users;
     }
     
+    @Override
     public String getDriveActual(){
         return driveActual;
     }
     
+    @Override
     public String getRutaActual(){
         return rutaActual;
     }
     
-    public ArrayList<Folder> getFolders(){
+    @Override
+    public ArrayList<IFolder> getFolders(){
         return folders;
     }
     
-    public ArrayList<File> getFiles(){
+    @Override
+    public ArrayList<IFile> getFiles(){
         return files;
     }
     
@@ -72,31 +91,38 @@ public class Filesystem {
     
     
     // Modificadores
-    public void setDrives(ArrayList<Drive> drives){
+    @Override
+    public void setDrives(ArrayList<IDrive> drives){
         this.drives = drives;
     }
     
+    @Override
     public void setLoggedUser(String userName){
         this.loggedUser = userName;
     }
     
+    @Override
     public void setDriveActual(String letter){
         this.driveActual = letter;
     }
     
-    public void setUsers(ArrayList<User> users){
+    @Override
+    public void setUsers(ArrayList<IUser> users){
         this.users = users;
     }
     
+    @Override
     public void setRutaActual(String rutaActual){
         this.rutaActual = rutaActual;
     }
     
-    public void setFolders(ArrayList<Folder> folders){
+    @Override
+    public void setFolders(ArrayList<IFolder> folders){
         this.folders = folders;
     }
     
-    public void setFiles(ArrayList<File> files){
+    @Override
+    public void setFiles(ArrayList<IFile> files){
         this.files = files;
     }
     
@@ -104,34 +130,39 @@ public class Filesystem {
     
     
     // Otras Operaciones
-    public void agregarDrive(Drive newDrive){
-        ArrayList<Drive> listaDrives = getDrives();
+    @Override
+    public void agregarDrive(IDrive newDrive){
+        ArrayList<IDrive> listaDrives = getDrives();
         listaDrives.add(newDrive);
         setDrives(listaDrives);
     }
     
-    public void agregarUser(User newUser){
-        ArrayList<User> listaUsers = getUsers();
+    @Override
+    public void agregarUser(IUser newUser){
+        ArrayList<IUser> listaUsers = getUsers();
         listaUsers.add(newUser);
         setUsers(listaUsers);
     }
     
-    public void agregarFolder(Folder newFolder){
-        ArrayList<Folder> listaFolders = getFolders();
+    @Override
+    public void agregarFolder(IFolder newFolder){
+        ArrayList<IFolder> listaFolders = getFolders();
         listaFolders.add(newFolder);
         setFolders(listaFolders);
     }
     
-    public void agregarFile(File newFile){
-        ArrayList<File> listaFiles = getFiles();
+    @Override
+    public void agregarFile(IFile newFile){
+        ArrayList<IFile> listaFiles = getFiles();
         listaFiles.add(newFile);
         setFiles(listaFiles);
     }
     
+    @Override
     public boolean buscarDrive(String letra){
         int largo = this.drives.size();
         for(int i = 0 ; i < largo ; ++i){
-            Drive drive = drives.get(i);
+            IDrive drive = drives.get(i);
             if(drive.getLetra().equals(letra)){
                 return true;
             }
@@ -140,10 +171,11 @@ public class Filesystem {
         return false;
     }
     
+    @Override
     public boolean buscarUser(String userName){
         int largo = this.users.size();
         for(int i = 0 ; i < largo ; ++i){
-            User user = users.get(i);
+            IUser user = users.get(i);
             if(user.getName().equals(userName)){
                 return true;
             }
@@ -152,10 +184,11 @@ public class Filesystem {
         return false;
     }
     
+    @Override
     public boolean buscarFolder(String ruta){
         int largo = this.folders.size();
         for(int i = 0 ; i < largo ; ++i){
-            Folder folder = folders.get(i);
+            IFolder folder = folders.get(i);
             if(folder.getRuta().equals(ruta)){
                 return true;
             }
@@ -164,10 +197,11 @@ public class Filesystem {
         return false;
     }
     
+    @Override
     public boolean buscarFile(String nombre, String ruta){
         int largo = this.files.size();
         for(int i = 0 ; i < largo ; ++i){
-            File file = files.get(i);
+            IFile file = files.get(i);
             if(file.getNombreSinExtension().equals(nombre) && file.getRuta().equals(ruta)){
                 return true;
             }
@@ -176,10 +210,11 @@ public class Filesystem {
         return false;
     }
     
+    @Override
     public boolean buscarFileConExtension(String nombre, String ruta){
         int largo = this.files.size();
         for(int i = 0 ; i < largo ; ++i){
-            File file = files.get(i);
+            IFile file = files.get(i);
             if(file.getNombre().equals(nombre) && file.getRuta().equals(ruta)){
                 return true;
             }
@@ -188,6 +223,7 @@ public class Filesystem {
         return false;
     }
     
+    @Override
     public void eliminarFile(String nombre, String ruta){
         int largo = this.files.size();
         for(int i = 0 ; i < largo ; ++i){
@@ -197,6 +233,7 @@ public class Filesystem {
         }
     }
     
+    @Override
     public void eliminarFolder(String ruta){
         int largoF = getFolders().size();
         String rutaF;
@@ -217,6 +254,7 @@ public class Filesystem {
         }
     }
     
+    @Override
     public void copiarFolder(String source, String ruta, String target){
         int largoF = getFolders().size();
         String rutaF;
@@ -261,6 +299,7 @@ public class Filesystem {
         }
     }
     
+    @Override
     public void moverFolder(String source, String ruta, String target){
         int largoF = getFolders().size();
         String rutaF;
@@ -285,10 +324,11 @@ public class Filesystem {
         }
     }
     
-    public File getFile(String nombre, String ruta){
+    @Override
+    public IFile getFile(String nombre, String ruta){
         int largo = getFiles().size();
         for(int i = 0 ; i < largo ; ++i){
-            File file = files.get(i);
+            IFile file = files.get(i);
             if(file.getNombreSinExtension().equals(nombre) && file.getRuta().equals(ruta)){
                 return file;
             }
@@ -296,10 +336,11 @@ public class Filesystem {
         return null;
     }
     
-    public Folder getFolder(String ruta){
+    @Override
+    public IFolder getFolder(String ruta){
         int largo = getFolders().size();
         for(int i = 0 ; i < largo ; ++i){
-            Folder folder = folders.get(i);
+            IFolder folder = folders.get(i);
             if(folder.getRuta().equals(ruta)){
                 return folder;
             }
@@ -307,6 +348,7 @@ public class Filesystem {
         return null;
     }
     
+    @Override
     public void sobreescribirFile(String nombre, String ruta, String contenido, String extension){
         int largo = this.files.size();
         String nombreSinExtension = nombre.split("\\.")[0];
@@ -321,6 +363,7 @@ public class Filesystem {
         }
     }
     
+    @Override
     public void desaparecerFile(String nombre, String ruta){
         int largo = files.size();
         for(int i = 0 ; i < largo ; ++i){
@@ -331,6 +374,7 @@ public class Filesystem {
         }
     }
     
+    @Override
     public String cambiarRuta(int n, String rutaOriginal, String fuenteNueva){
         String[] rO = rutaOriginal.split("/");
         int largoRestante = rO.length;
@@ -343,6 +387,7 @@ public class Filesystem {
         return rutaNueva;
     }
     
+    @Override
     public void renombrarCarpetas(String currentName, String newName){
         int largo = getFolders().size();
         int n = (getRutaActual()+newName+"/").split("/").length;
