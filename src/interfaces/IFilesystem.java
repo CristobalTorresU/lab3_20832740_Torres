@@ -42,4 +42,22 @@ public interface IFilesystem {
     public void desaparecerFile(String nombre, String ruta);
     public String cambiarRuta(int n, String rutaOriginal, String fuenteNueva);
     public void renombrarCarpetas(String currentName, String newName);
+    public IFile generarFile(String nombre, String contenido);
+    
+    // Requeriemientos Funcionales
+    //public void system(String name);
+    public void addDrive(String letter, String name, int capacity);
+    public void register(String userName);
+    public void login(String userName);
+    public void logout();
+    public void switchDrive(String letter);
+    public void mkdir(String name);
+    public void cd(String path);
+    public void addFile(IFile archivo);
+    public void del(String fileName);
+    public void copy(String source, String target);
+    public void move(String source, String target);
+    public void ren(String currentName, String newName);
+    public void dir(ArrayList<String> params);
+    public void format(String letter, String name);
 }
