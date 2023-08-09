@@ -1,0 +1,3 @@
+Para ejecutar el programa, es necesario usar Bash.
+Dentro de "Código Fuente" está la carpeta "src", y dentro de esta última está el archivo "ejecutar.sh".
+Para usar el programa, basta con ejecutar el archivo en el terminal.

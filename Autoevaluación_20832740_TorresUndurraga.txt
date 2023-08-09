@@ -1,0 +1,103 @@
+Requerimientos Funcionales:
+1. Clases y estructuras que forman el programa
+Autoevaluación: 1
+
+2. Menú interactivo por terminal
+Autoevaluación: 1
+
+3. TDA system - constructor
+Autoevaluación: 1
+
+4. TDA system - addDrive
+Autoevaluación: 1
+
+5. TDA system - register
+Autoevaluación: 1
+
+6. TDA system - login
+Autoevaluación: 1
+
+7. TDA system - logout
+Autoevaluación: 1
+
+8. TDA system - switchDrive
+Autoevaluación: 1
+
+9. TDA system - mkdir (make directory)
+Autoevaluación: 1
+
+10. TDA system - cd (change directory)
+Autoevaluación: 1
+Se implementó una versión simple de este comando.
+
+11. TDA system - addFile
+Autoevaluación: 1
+
+12. TDA system - del
+Autoevaluación: 1
+Se implementó una versión simple de este comando.
+
+13. TDA system - copy
+Autoevaluación: 0.75
+
+14. TDA system - move
+Autoevaluación: 1
+
+15. TDA system - ren (rename)
+Autoevaluación: 1
+
+16. TDA system - dir (directory)
+Autoevaluación: 1
+Se implementó las siguientes versiones: simple, "/o [-]N" y "/?".
+
+17. TDA system - format
+Autoevaluación: 1
+
+18. TDA system - encrypt
+Autoevaluación: 0
+
+19. TDA system - decrypt
+Autoevaluación: 0
+
+20. TDA system - grep
+Autoevaluación: 0
+
+21. TDA system - view-trash
+Autoevaluación: 0
+
+22. TDA system - restore
+Autoevaluación: 0
+
+23. Extra Opcional
+Autoevaluación: 0
+
+Requerimientos No Funcionales:
+1. Autoevaluación
+Autoevaluación: 1
+
+2. Lenguaje y herramientas de trabajo
+Autoevaluación: 1
+
+3. Interacciones con el programa
+Autoevaluación: 1
+
+4. Uso del paradigma
+Autoevaluación: 1
+
+5. Prerrequisitos
+Autoevaluación: 1
+
+6. Documentación
+Autoevaluación: 1
+
+7. Organización del código
+Autoevaluación: 1
+
+10. Diagrama de análisis
+Autoevaluación: 1
+
+11. Diagrama de diseño
+Autoevaluación: 1
+
+12. Uso de git
+Autoevaluación: 1
